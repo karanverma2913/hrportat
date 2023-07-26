@@ -1,6 +1,7 @@
 class EventsController < ApiController
-  before_action :authorizer, except: [:index, :show]
-  before_action :find_id, only: [:show, :update, :destroy]
+  before_action :authorizerr, except: %i[index show]
+  before_action :find_id, only: %i[update show destroy]
+
   def index
     render json: Event.all, status: :ok
   end
@@ -23,6 +24,11 @@ class EventsController < ApiController
     render json: @event, status: :ok
   end
 
+   def apni
+    @event.update(event_params)
+    render json: @event, status: :ok
+  end
+
   def destroy
     @event.destroy
     render json: @event, status: :ok
@@ -30,8 +36,8 @@ class EventsController < ApiController
 
   private
 
-  def authorizer
-    authorize User
+  def authorizerr
+    authorize Event
   end
 
   def find_id
@@ -41,6 +47,6 @@ class EventsController < ApiController
   end
 
   def event_params
-    params.permit(:name,:date,:desc)
+    params.permit(:name, :date, :desc)
   end
 end

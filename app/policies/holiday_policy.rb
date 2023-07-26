@@ -1,7 +1,5 @@
 class HolidayPolicy < ApplicationPolicy
-  def show?
-    true
-  end
+
   def create?
     user.is_hr?
   end

@@ -1,6 +1,6 @@
 class HolidaysController < ApiController
-  before_action :find_id, only: [:show, :update, :destroy]
-  before_action :authorizer, except: [:index, :show]
+  before_action :find_id, only: %i[show update destroy]
+  before_action :authorizer, except: %i[index show]
 
   def index
     render json: Holiday.all, status: :ok
@@ -32,7 +32,7 @@ class HolidaysController < ApiController
   private
 
   def authorizer
-    authorize User
+    authorize Holiday
   end
 
   def find_id
@@ -42,6 +42,6 @@ class HolidaysController < ApiController
   end
 
   def holiday_params
-    params.permit(:name,:date)
+    params.permit(:name, :date)
   end
 end

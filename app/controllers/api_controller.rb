@@ -1,17 +1,17 @@
 class ApiController < ActionController::API
-	include JsonWebToken
+  include JsonWebToken
   include Pundit::Authorization
 
-	before_action :authenticate
-  
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  before_action :authenticate
 
-  private
+  # rescue_from Pundit::NotAuthorizedError, with: :usprouer_not_authorized
 
   def current_user
     @current_user
   end
-  
+
+  private
+
   def authenticate
     header = request.headers['Authorization']
     decoded = jwt_decode(header.split(' ').last)
@@ -21,6 +21,6 @@ class ApiController < ActionController::API
   end
 
   def user_not_authorized
-    render json: {message: 'You are not authorized to perform this action.'}
+    render json: { message: 'You are not authorized to perform this action.' }
   end
 end

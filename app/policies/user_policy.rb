@@ -1,5 +1,4 @@
 class UserPolicy < ApplicationPolicy
-
   def index?
     user.is_hr?
   end
@@ -19,5 +18,4 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     user.is_hr?
   end
-
 end
