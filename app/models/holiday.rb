@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Holiday < ApplicationRecord
   validates :date, presence: { message: 'Invalid date' }
   validates :name, presence: true, uniqueness: true,

@@ -5,6 +5,9 @@ class ApiController < ActionController::API
   before_action :authenticate
 
   # rescue_from Pundit::NotAuthorizedError, with: :usprouer_not_authorized
+  rescue_from CanCan::AccessDenied do |ex|
+    render json: {message: ex}
+  end
 
   def current_user
     @current_user
@@ -20,7 +23,7 @@ class ApiController < ActionController::API
     render json: { error: 'Unauthorized user' }, status: :unprocessable_entity
   end
 
-  def user_not_authorized
-    render json: { message: 'You are not authorized to perform this action.' }
-  end
+  # def user_not_authorized
+  #   render json: { message: 'You are not authorized to perform this action.' }
+  # end
 end

@@ -1,6 +1,8 @@
 class UsersController < ApiController
   skip_before_action :authenticate, only: [:login]
-  before_action :authorizerr, except: [:login]
+  # before_action :authorizerr, except: [:login]
+  load_and_authorize_resource except: :login
+  
   def index
     if params[:name].present?
       user = User.where('name like ?', "%#{params[:name]}%")
@@ -49,9 +51,9 @@ class UsersController < ApiController
 
   private
 
-  def authorizerr
-    authorize User
-  end
+  # def authorizerr
+  #   authorize User
+  # end
 
   def user_params
     params.permit(:name, :email, :password, :role, :joining_date, :salary)

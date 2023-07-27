@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class User < ApplicationRecord
   validates :name, :password, :email, presence: true
   validates :name, format: { with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/,
@@ -18,4 +16,5 @@ class User < ApplicationRecord
   def is_employee?
     type == 'Employee'
   end
+  
 end

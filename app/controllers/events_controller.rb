@@ -1,7 +1,7 @@
 class EventsController < ApiController
-  before_action :authorizerr, except: %i[index show]
+  # before_action :authorizerr, except: %i[index show]
   before_action :find_id, only: %i[update show destroy]
-
+  load_and_authorize_resource
   def index
     render json: Event.all, status: :ok
   end
@@ -24,11 +24,6 @@ class EventsController < ApiController
     render json: @event, status: :ok
   end
 
-   def apni
-    @event.update(event_params)
-    render json: @event, status: :ok
-  end
-
   def destroy
     @event.destroy
     render json: @event, status: :ok
@@ -36,9 +31,9 @@ class EventsController < ApiController
 
   private
 
-  def authorizerr
-    authorize Event
-  end
+  # def authorizerr
+  #   authorize Event
+  # end
 
   def find_id
     @event = Event.find(params[:id])

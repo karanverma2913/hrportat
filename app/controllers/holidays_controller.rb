@@ -1,7 +1,8 @@
 class HolidaysController < ApiController
   before_action :find_id, only: %i[show update destroy]
-  before_action :authorizer, except: %i[index show]
-
+  # before_action :authorizer, except: %i[index show]
+  load_and_authorize_resource
+  
   def index
     render json: Holiday.all, status: :ok
   end
@@ -31,9 +32,9 @@ class HolidaysController < ApiController
 
   private
 
-  def authorizer
-    authorize Holiday
-  end
+  # def authorizer
+  #   authorize Holiday
+  # end
 
   def find_id
     @holiday = Holiday.find(params[:id])
